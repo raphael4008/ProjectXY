@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # 1. Database (SQL)
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changethis}
+      POSTGRES_DB: ${POSTGRES_DB:-cyberintel}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/postgres/init:/docker-entrypoint-initdb.d
+    networks:
+      - backend-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Database (Graph)
+  neo4j:
+    image: neo4j:5.16.0
+    restart: always
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:-password}
+      NEO4J_dbms_memory_heap_initial__size: 512m
+      NEO4J_dbms_memory_heap_max__size: 1G
+    ports:
+      - "7474:7474" # Browser
+      - "7687:7687" # Bolt
+    volumes:
+      - neo4j_data:/data
+    networks:
+      - backend-net
+
+  # 3. Backend API
+  backend:
+    build: ./backend
+    restart: always
+    environment:
+      POSTGRES_SERVER: postgres
+      NEO4J_URI: bolt://neo4j:7687
+    depends_on:
+      postgres:
+        condition: service_healthy
+      neo4j:
+        condition: service_started
+    ports:
+      - "8000:8000"
+    networks:
+      - backend-net
+
+  # 4. Frontend Dashboard
+  frontend:
+    build: ./frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    networks:
+      - backend-net
+
+volumes:
+  postgres_data:
+  neo4j_data:
+
+
+networks:
+  backend-net:
