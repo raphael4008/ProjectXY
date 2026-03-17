@@ -57,6 +57,18 @@ class RiskEngine:
                 description="Entity has remarkably little public footprint, suggesting operational security."
             ))
             
+        # 4. Behavioral Heuristics (AI Analyst Input)
+        # Mock logic: check for 'suspicious' patterns in attributes/relationships
+        is_evasive = any("proxy" in str(a.value).lower() for a in entity.attributes)
+        if is_evasive:
+            impact = 25
+            score += impact
+            factors.append(RiskFactor(
+                name="Evasive Behavior",
+                score_impact=impact,
+                description="Use of proxy/anonymization services detected."
+            ))
+
         # Final Score Cap
         total_score = min(score, 100)
         
@@ -71,7 +83,7 @@ class RiskEngine:
         narrative += f"Primary driver is {factors[0].name}." if factors else "No significant risk factors detected."
 
         return RiskAnalysisResult(
-            target_id=entity.id,
+            target_id=str(entity.id),
             total_score=total_score,
             level=level,
             factors=factors,

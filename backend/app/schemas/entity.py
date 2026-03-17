@@ -9,6 +9,8 @@ class EntityType(str, Enum):
     ORGANIZATION = "organization"
     DOMAIN = "domain"
     IP = "ip"
+    THREAT_ACTOR = "threat-actor"
+    MALWARE = "malware"
 
 class AttributeType(str, Enum):
     EMAIL = "email"
@@ -36,8 +38,10 @@ class EntityBase(BaseModel):
 class EntityCreate(EntityBase):
     attributes: List[Attribute] = []
 
+from uuid import UUID
+
 class Entity(EntityBase):
-    id: str
+    id: UUID
     attributes: List[Attribute] = []
     created_at: datetime
     updated_at: datetime

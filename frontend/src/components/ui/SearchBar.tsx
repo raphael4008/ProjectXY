@@ -14,30 +14,21 @@ export default function SearchBar() {
         if (e.key === 'Enter' && query.trim()) {
             setLoading(true);
             try {
-                // For now, simpler exact match search or redirect to first optional result
-                // Ideally this would be a full search page, but for MVP let's checks if it's an ID or name
-                // Basic implementation: Navigate to entity if it looks like an ID, otherwise search
-                // Since our API has basic list with filters, we will just assume the user knows IDs for the MVP 
-                // OR we fetch entities and find a match.
+                // Call Natural Language Search API
+                const result = await api.search(query);
 
-                // Let's assume for this "Wiring Phase" we direct to the ID if it matches UUID format,
-                // otherwise we might need a search results page.
-                // To keep it simple: We will do a client-side filter of the entities list for the query name
-                // taking the first match (Naive Search)
-                const entities = await api.getEntities();
-                const match = entities.find(e =>
-                    e.canonical_name.toLowerCase().includes(query.toLowerCase()) ||
-                    e.id === query
-                );
-
-                if (match) {
-                    router.push(`/dashboard/entity/${match.id}`);
+                if (result.type === 'search_results' && result.data.length > 0) {
+                    // Navigate to first match for MVP
+                    router.push(`/dashboard/entity/${result.data[0].id}`);
+                } else if (result.type === 'text') {
+                    alert(`AI Response: ${result.message}`);
                 } else {
-                    alert("No entities found matching that query.");
+                    alert("No entities found or query not understood.");
                 }
 
             } catch (err) {
                 console.error("Search failed", err);
+                alert("Search system offline.");
             } finally {
                 setLoading(false);
             }

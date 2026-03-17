@@ -27,6 +27,8 @@ COPY --from=builder /app/requirements.txt .
 
 RUN pip install --no-cache /wheels/*
 
+RUN python -m textblob.download_corpora
+
 COPY . .
 
 # Security: Run as non-root user

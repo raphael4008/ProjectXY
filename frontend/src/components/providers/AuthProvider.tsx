@@ -25,14 +25,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
 
     useEffect(() => {
-        // 1. Load Token on Mount
-        const token = localStorage.getItem('token');
-        if (token) {
-            api.setToken(token);
-            // Ideally verify token with backend here, or decode JWT
-            setUser({ role: 'analyst' }); // Mock user object for now
-        }
-        setIsLoading(false);
+        const initAuth = async () => {
+            try {
+                // Clear any stale tokens
+                localStorage.removeItem('token');
+
+                // Force fresh login for the demo
+                const data = await api.login('admin@projectxy.com', 'admin123');
+                const token = data.access_token;
+
+                api.setToken(token);
+                setUser({ role: 'admin' });
+            } catch (e) {
+                console.error("Auto-login failed:", e);
+            }
+            setIsLoading(false);
+        };
+        initAuth();
     }, []);
 
     const login = (token: string) => {
@@ -62,7 +71,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return (
         <AuthContext.Provider value={{ user, login, logout, isLoading }}>
-            {children}
+            {isLoading ? (
+                <div className="fixed inset-0 bg-[#050505] flex items-center justify-center z-50">
+                    <div className="text-cyan-500 font-mono tracking-widest animate-pulse text-sm">
+                        [ SYSTEM AUTHORIZATION IN PROGRESS... ]
+                    </div>
+                </div>
+            ) : (
+                children
+            )}
         </AuthContext.Provider>
     );
 }

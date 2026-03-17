@@ -13,17 +13,44 @@ export default function EntityProfilePage({ params }: { params: { id: string } }
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    // Chat State
+    const [chatInput, setChatInput] = useState('');
+    const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'analyst', content: string }[]>([]);
+    const [isChatting, setIsChatting] = useState(false);
+
+    const handleChatSubmit = async () => {
+        if (!chatInput.trim()) return;
+
+        const question = chatInput;
+        setChatInput('');
+        setChatHistory(prev => [...prev, { role: 'user', content: question }]);
+        setIsChatting(true);
+
+        try {
+            const res = await api.chatWithAnalyst(entityId, question);
+            setChatHistory(prev => [...prev, { role: 'analyst', content: res.response }]);
+        } catch (err) {
+            setChatHistory(prev => [...prev, { role: 'analyst', content: "Connection lost to Neural Engine." }]);
+        } finally {
+            setIsChatting(false);
+        }
+    };
+
+    const [investigation, setInvestigation] = useState<any>(null);
+
     useEffect(() => {
         const loadEntityData = async () => {
             try {
-                // Parallel fetch for Entity details and AI Summary
-                const [entityData, summaryData] = await Promise.all([
+                // Parallel fetch for Entity, Summary, and Deep Investigation
+                const [entityData, summaryData, investData] = await Promise.all([
                     api.getEntity(entityId),
-                    api.getAISummary(entityId)
+                    api.getAISummary(entityId),
+                    api.investigateEntity(entityId)
                 ]);
 
                 setEntity(entityData);
                 setSummary(summaryData.summary);
+                setInvestigation(investData);
             } catch (err) {
                 console.error("Failed to load entity profile", err);
                 setError("Could not load entity intelligence. ID might be invalid.");
@@ -134,22 +161,84 @@ export default function EntityProfilePage({ params }: { params: { id: string } }
                     </div>
                 </div>
 
-                {/* Right: AI Analysis */}
-                <div className="col-span-3 glass-panel p-6 rounded-2xl border-l-4 border-l-primary overflow-y-auto">
-                    <h3 className="text-sm font-bold text-primary mb-4 uppercase tracking-widest">
-                        AI Intelligence Summary
-                    </h3>
-                    <div className="prose prose-invert prose-sm">
-                        {summary ? (
-                            <div className="whitespace-pre-wrap">{summary}</div>
-                        ) : (
-                            <p className="text-gray-500 italic">Generating intelligence summary...</p>
+                {/* Right: AI Analysis & Chat */}
+                <div className="col-span-3 flex flex-col gap-6">
+                    {/* Investigation Summary Card */}
+                    <div className="glass-panel p-6 rounded-2xl border-l-4 border-l-red-500 overflow-y-auto max-h-[400px]">
+                        <h3 className="text-sm font-bold text-red-500 mb-4 uppercase tracking-widest flex items-center gap-2">
+                            <Fingerprint size={14} /> Investigation Report
+                        </h3>
+
+                        {investigation && (
+                            <div className="mb-4 p-3 bg-red-900/20 border border-red-500/30 rounded flex justify-between items-center">
+                                <div>
+                                    <div className="text-[10px] text-red-400 uppercase">Verdict</div>
+                                    <div className="font-bold text-red-100">{investigation.verdict}</div>
+                                </div>
+                                <div className="text-right">
+                                    <div className="text-[10px] text-red-400 uppercase">Threat Score</div>
+                                    <div className="font-bold text-2xl text-red-500">{investigation.threat_score}</div>
+                                </div>
+                            </div>
                         )}
 
-                        <div className="mt-4 p-3 bg-primary/10 border border-primary/20 rounded text-xs text-primary font-mono">
-                            Confidence: CALCULATING...
-                            <br />
-                            Source: NEURAL ENGINE
+                        <div className="space-y-4">
+                            <div>
+                                <h4 className="text-xs text-gray-500 uppercase mb-2">Kill Chain Stage</h4>
+                                <div className="flex items-center gap-2">
+                                    <div className="flex-1 h-2 bg-gray-800 rounded-full overflow-hidden">
+                                        <div className="h-full bg-red-500 w-full animate-pulse"></div>
+                                    </div>
+                                    <span className="text-xs font-bold text-red-400">{investigation?.kill_chain_stage || 'ANALYZING...'}</span>
+                                </div>
+                            </div>
+
+                            <div className="prose prose-invert prose-sm">
+                                {summary ? (
+                                    <div className="whitespace-pre-wrap">{summary}</div>
+                                ) : (
+                                    <p className="text-gray-500 italic">Generating intelligence summary...</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Ask the Analyst Chat */}
+                    <div className="glass-panel p-4 rounded-2xl flex-1 flex flex-col border border-white/10">
+                        <h3 className="text-sm font-bold text-gray-400 mb-4 uppercase flex gap-2 items-center">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            Ask the Analyst
+                        </h3>
+
+                        <div className="flex-1 overflow-y-auto space-y-4 mb-4 min-h-[200px] max-h-[300px] pr-2">
+                            {/* Chat History Mock */}
+                            <div className="flex flex-col gap-1">
+                                <span className="text-[10px] text-gray-500 uppercase">System</span>
+                                <div className="bg-white/5 p-2 rounded-lg text-xs text-gray-300">
+                                    Analyst Agent active. Context loaded for {entity?.canonical_name}.
+                                </div>
+                            </div>
+
+                            {chatHistory.map((msg, idx) => (
+                                <div key={idx} className={`flex flex-col gap-1 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                                    <span className="text-[10px] text-gray-500 uppercase">{msg.role}</span>
+                                    <div className={`p-2 rounded-lg text-xs max-w-[90%] ${msg.role === 'user' ? 'bg-primary/20 text-primary-foreground' : 'bg-white/10 text-gray-300'}`}>
+                                        {msg.content}
+                                    </div>
+                                </div>
+                            ))}
+                            {isChatting && <div className="text-xs text-gray-500 animate-pulse">Analyst is typing...</div>}
+                        </div>
+
+                        <div className="mt-auto relative">
+                            <input
+                                type="text"
+                                value={chatInput}
+                                onChange={(e) => setChatInput(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleChatSubmit()}
+                                placeholder="Query the entity knowledge base..."
+                                className="w-full bg-black/50 border border-white/10 rounded-lg py-2 px-3 text-sm text-white focus:outline-none focus:border-primary transition-colors"
+                            />
                         </div>
                     </div>
                 </div>

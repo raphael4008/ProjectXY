@@ -1,0 +1,500 @@
+2026-02-16 15:20:45,754 INFO sqlalchemy.engine.Engine [cached since 0.01742s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,759 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60120 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,770 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,770 INFO sqlalchemy.engine.Engine SELECT devices.id AS devices_id, devices.name AS devices_name, devices.type AS devices_type, devices.latitude AS devices_latitude, devices.longitude AS devices_longitude, devices.accuracy_radius AS devices_accuracy_radius, devices.last_seen AS devices_last_seen, devices.active_trace AS devices_active_trace, devices.owner_id AS devices_owner_id 
+FROM devices 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,771 INFO sqlalchemy.engine.Engine [cached since 0.03388s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,774 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60132 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,784 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,784 INFO sqlalchemy.engine.Engine SELECT devices.id AS devices_id, devices.name AS devices_name, devices.type AS devices_type, devices.latitude AS devices_latitude, devices.longitude AS devices_longitude, devices.accuracy_radius AS devices_accuracy_radius, devices.last_seen AS devices_last_seen, devices.active_trace AS devices_active_trace, devices.owner_id AS devices_owner_id 
+FROM devices 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,785 INFO sqlalchemy.engine.Engine [cached since 0.04797s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,789 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60144 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,798 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,799 INFO sqlalchemy.engine.Engine SELECT devices.id AS devices_id, devices.name AS devices_name, devices.type AS devices_type, devices.latitude AS devices_latitude, devices.longitude AS devices_longitude, devices.accuracy_radius AS devices_accuracy_radius, devices.last_seen AS devices_last_seen, devices.active_trace AS devices_active_trace, devices.owner_id AS devices_owner_id 
+FROM devices 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,799 INFO sqlalchemy.engine.Engine [cached since 0.06209s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,802 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60146 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,822 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,823 INFO sqlalchemy.engine.Engine SELECT devices.id AS devices_id, devices.name AS devices_name, devices.type AS devices_type, devices.latitude AS devices_latitude, devices.longitude AS devices_longitude, devices.accuracy_radius AS devices_accuracy_radius, devices.last_seen AS devices_last_seen, devices.active_trace AS devices_active_trace, devices.owner_id AS devices_owner_id 
+FROM devices 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,824 INFO sqlalchemy.engine.Engine [cached since 0.08727s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,829 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60162 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,849 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,850 INFO sqlalchemy.engine.Engine SELECT devices.id AS devices_id, devices.name AS devices_name, devices.type AS devices_type, devices.latitude AS devices_latitude, devices.longitude AS devices_longitude, devices.accuracy_radius AS devices_accuracy_radius, devices.last_seen AS devices_last_seen, devices.active_trace AS devices_active_trace, devices.owner_id AS devices_owner_id 
+FROM devices 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,850 INFO sqlalchemy.engine.Engine [cached since 0.1132s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,858 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60178 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,869 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,870 INFO sqlalchemy.engine.Engine SELECT devices.id AS devices_id, devices.name AS devices_name, devices.type AS devices_type, devices.latitude AS devices_latitude, devices.longitude AS devices_longitude, devices.accuracy_radius AS devices_accuracy_radius, devices.last_seen AS devices_last_seen, devices.active_trace AS devices_active_trace, devices.owner_id AS devices_owner_id 
+FROM devices 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,870 INFO sqlalchemy.engine.Engine [cached since 0.1336s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,874 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60184 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,884 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,885 INFO sqlalchemy.engine.Engine SELECT devices.id AS devices_id, devices.name AS devices_name, devices.type AS devices_type, devices.latitude AS devices_latitude, devices.longitude AS devices_longitude, devices.accuracy_radius AS devices_accuracy_radius, devices.last_seen AS devices_last_seen, devices.active_trace AS devices_active_trace, devices.owner_id AS devices_owner_id 
+FROM devices 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,885 INFO sqlalchemy.engine.Engine [cached since 0.1485s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,889 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60200 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,899 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,900 INFO sqlalchemy.engine.Engine SELECT devices.id AS devices_id, devices.name AS devices_name, devices.type AS devices_type, devices.latitude AS devices_latitude, devices.longitude AS devices_longitude, devices.accuracy_radius AS devices_accuracy_radius, devices.last_seen AS devices_last_seen, devices.active_trace AS devices_active_trace, devices.owner_id AS devices_owner_id 
+FROM devices 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,900 INFO sqlalchemy.engine.Engine [cached since 0.1632s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,904 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60204 - "GET /api/v1/devices/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,917 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,918 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:45,918 INFO sqlalchemy.engine.Engine [cached since 2.293s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:45,923 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+ LIMIT %(param_1)s OFFSET %(param_2)s
+2026-02-16 15:20:45,923 INFO sqlalchemy.engine.Engine [cached since 1.104s ago] {'param_1': 100, 'param_2': 0}
+2026-02-16 15:20:45,928 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,928 INFO sqlalchemy.engine.Engine [cached since 1.092s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:45,931 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,931 INFO sqlalchemy.engine.Engine [cached since 1.095s ago] {'param_1': UUID('389e791f-e2fd-4e92-9d98-db71bef4c724')}
+2026-02-16 15:20:45,934 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,934 INFO sqlalchemy.engine.Engine [cached since 1.098s ago] {'param_1': UUID('0e634cd1-6b34-41ac-b7b8-aa8047c4f863')}
+2026-02-16 15:20:45,937 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,937 INFO sqlalchemy.engine.Engine [cached since 1.101s ago] {'param_1': UUID('e75306aa-6356-40a4-a2a8-43aca52024d9')}
+2026-02-16 15:20:45,940 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,940 INFO sqlalchemy.engine.Engine [cached since 1.104s ago] {'param_1': UUID('d7e45478-ff77-4ee4-8ef0-bf3a3a9c35b8')}
+2026-02-16 15:20:45,944 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,944 INFO sqlalchemy.engine.Engine [cached since 1.108s ago] {'param_1': UUID('85f4f7b5-1b86-4099-b960-1a0d7cbdf5e0')}
+2026-02-16 15:20:45,948 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,948 INFO sqlalchemy.engine.Engine [cached since 1.112s ago] {'param_1': UUID('400b2357-de0d-4487-8d5b-94a659009f7d')}
+2026-02-16 15:20:45,952 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,952 INFO sqlalchemy.engine.Engine [cached since 1.116s ago] {'param_1': UUID('28386632-9e0d-4924-9f62-5cb071d54e8d')}
+2026-02-16 15:20:45,955 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,955 INFO sqlalchemy.engine.Engine [cached since 1.119s ago] {'param_1': UUID('2158471a-c81d-4d17-b78a-e084ea809641')}
+2026-02-16 15:20:45,958 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,958 INFO sqlalchemy.engine.Engine [cached since 1.122s ago] {'param_1': UUID('063f8cd9-a255-413e-b7fc-23371c781b98')}
+2026-02-16 15:20:45,961 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,961 INFO sqlalchemy.engine.Engine [cached since 1.125s ago] {'param_1': UUID('e9dbb25b-5ef6-4d64-9cde-15dcd698f20c')}
+2026-02-16 15:20:45,965 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60220 - "GET /api/v1/entities/ HTTP/1.1" 200 OK
+2026-02-16 15:20:45,975 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:45,976 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:45,977 INFO sqlalchemy.engine.Engine [cached since 2.352s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:45,985 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:45,986 INFO sqlalchemy.engine.Engine [generated in 0.00073s] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:45,992 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:45,993 INFO sqlalchemy.engine.Engine [cached since 1.157s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:45,997 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60226 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,012 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,014 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,014 INFO sqlalchemy.engine.Engine [cached since 2.39s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,020 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,020 INFO sqlalchemy.engine.Engine [cached since 0.03557s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,024 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,025 INFO sqlalchemy.engine.Engine [cached since 1.189s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,028 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60228 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,038 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,039 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,039 INFO sqlalchemy.engine.Engine [cached since 2.414s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,043 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,044 INFO sqlalchemy.engine.Engine [cached since 0.05881s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,047 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,048 INFO sqlalchemy.engine.Engine [cached since 1.212s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,051 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60232 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,062 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,063 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,064 INFO sqlalchemy.engine.Engine [cached since 2.439s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,069 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,069 INFO sqlalchemy.engine.Engine [cached since 0.08433s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,073 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,074 INFO sqlalchemy.engine.Engine [cached since 1.238s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,078 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60248 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,094 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,097 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,097 INFO sqlalchemy.engine.Engine [cached since 2.473s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,104 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,104 INFO sqlalchemy.engine.Engine [cached since 0.1191s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,109 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,109 INFO sqlalchemy.engine.Engine [cached since 1.273s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,112 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60250 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,122 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,122 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,123 INFO sqlalchemy.engine.Engine [cached since 2.498s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,130 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,131 INFO sqlalchemy.engine.Engine [cached since 0.1461s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,141 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,142 INFO sqlalchemy.engine.Engine [cached since 1.306s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,147 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60260 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,157 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,158 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,158 INFO sqlalchemy.engine.Engine [cached since 2.533s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,163 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,163 INFO sqlalchemy.engine.Engine [cached since 0.1779s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,167 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,168 INFO sqlalchemy.engine.Engine [cached since 1.332s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,172 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60268 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,185 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,186 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,186 INFO sqlalchemy.engine.Engine [cached since 2.561s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,195 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,195 INFO sqlalchemy.engine.Engine [cached since 0.21s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,199 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,199 INFO sqlalchemy.engine.Engine [cached since 1.363s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,202 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60274 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,217 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,218 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,218 INFO sqlalchemy.engine.Engine [cached since 2.593s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,227 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,229 INFO sqlalchemy.engine.Engine [cached since 0.2437s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,235 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,235 INFO sqlalchemy.engine.Engine [cached since 1.399s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,242 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60276 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,256 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,261 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,261 INFO sqlalchemy.engine.Engine [cached since 2.636s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:46,270 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,271 INFO sqlalchemy.engine.Engine [cached since 0.2855s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:46,275 INFO sqlalchemy.engine.Engine SELECT attributes.id AS attributes_id, attributes.entity_id AS attributes_entity_id, attributes.type AS attributes_type, attributes.value AS attributes_value, attributes.value_hash AS attributes_value_hash, attributes.source AS attributes_source, attributes.confidence AS attributes_confidence, attributes.last_seen AS attributes_last_seen 
+FROM attributes 
+WHERE %(param_1)s::UUID = attributes.entity_id
+2026-02-16 15:20:46,276 INFO sqlalchemy.engine.Engine [cached since 1.44s ago] {'param_1': UUID('e4c8fe03-cc5c-4072-8d34-bb34bbdca798')}
+2026-02-16 15:20:46,280 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60280 - "GET /api/v1/entities/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:46,294 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:46,295 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:46,295 INFO sqlalchemy.engine.Engine [cached since 2.67s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:52,183 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60282 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:52,213 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:52,214 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:52,214 INFO sqlalchemy.engine.Engine [cached since 8.589s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:52,344 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60362 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:52,358 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:52,359 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:52,360 INFO sqlalchemy.engine.Engine [cached since 8.735s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:52,443 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60372 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:52,461 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:52,465 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:52,466 INFO sqlalchemy.engine.Engine [cached since 8.841s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:52,578 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60380 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:52,593 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:52,594 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:52,595 INFO sqlalchemy.engine.Engine [cached since 8.97s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:52,695 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60396 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:52,710 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:52,711 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:52,711 INFO sqlalchemy.engine.Engine [cached since 9.086s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:52,794 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60402 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:52,809 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:52,811 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:52,811 INFO sqlalchemy.engine.Engine [cached since 9.186s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:52,907 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60406 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:52,925 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:52,926 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:52,927 INFO sqlalchemy.engine.Engine [cached since 9.302s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,075 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60420 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,097 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,099 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,099 INFO sqlalchemy.engine.Engine [cached since 9.474s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,226 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60432 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,247 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,249 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,250 INFO sqlalchemy.engine.Engine [cached since 9.625s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,405 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60436 - "GET /api/v1/analysis/graph/neighborhood/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,449 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,456 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,456 INFO sqlalchemy.engine.Engine [cached since 9.832s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,478 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,479 INFO sqlalchemy.engine.Engine [cached since 7.494s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,516 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60440 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,535 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,536 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,537 INFO sqlalchemy.engine.Engine [cached since 9.912s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,546 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,547 INFO sqlalchemy.engine.Engine [cached since 7.562s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,552 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60454 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,571 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,572 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,573 INFO sqlalchemy.engine.Engine [cached since 9.948s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,581 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,581 INFO sqlalchemy.engine.Engine [cached since 7.596s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,585 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60462 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,610 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,612 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,612 INFO sqlalchemy.engine.Engine [cached since 9.987s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,624 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,625 INFO sqlalchemy.engine.Engine [cached since 7.64s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,630 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60470 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,655 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,657 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,658 INFO sqlalchemy.engine.Engine [cached since 10.03s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,669 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,669 INFO sqlalchemy.engine.Engine [cached since 7.684s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,674 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60482 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,694 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,695 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,695 INFO sqlalchemy.engine.Engine [cached since 10.07s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,701 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,703 INFO sqlalchemy.engine.Engine [cached since 7.718s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,713 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60492 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,737 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,738 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,739 INFO sqlalchemy.engine.Engine [cached since 10.11s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,748 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,748 INFO sqlalchemy.engine.Engine [cached since 7.763s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,753 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60498 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,770 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,771 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,772 INFO sqlalchemy.engine.Engine [cached since 10.15s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,779 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,780 INFO sqlalchemy.engine.Engine [cached since 7.795s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,784 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60508 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,802 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,803 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,804 INFO sqlalchemy.engine.Engine [cached since 10.18s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,809 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,810 INFO sqlalchemy.engine.Engine [cached since 7.825s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,815 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60522 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:20:53,832 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:20:53,833 INFO sqlalchemy.engine.Engine SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.role AS users_role, users.created_at AS users_created_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,834 INFO sqlalchemy.engine.Engine [cached since 10.21s ago] {'email_1': 'admin@projectxy.com', 'param_1': 1}
+2026-02-16 15:20:53,843 INFO sqlalchemy.engine.Engine SELECT entities.id AS entities_id, entities.canonical_name AS entities_canonical_name, entities.type AS entities_type, entities.risk_score AS entities_risk_score, entities.created_at AS entities_created_at, entities.updated_at AS entities_updated_at 
+FROM entities 
+WHERE entities.id = %(id_1)s::UUID 
+ LIMIT %(param_1)s
+2026-02-16 15:20:53,844 INFO sqlalchemy.engine.Engine [cached since 7.859s ago] {'id_1': 'e4c8fe03-cc5c-4072-8d34-bb34bbdca798', 'param_1': 1}
+2026-02-16 15:20:53,848 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     172.19.0.1:60532 - "GET /api/v1/analysis/ai/summary/e4c8fe03-cc5c-4072-8d34-bb34bbdca798 HTTP/1.1" 200 OK
+2026-02-16 15:21:18,920 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-02-16 15:21:18,924 INFO sqlalchemy.engine.Engine SELECT audit_logs.id AS audit_logs_id, audit_logs.actor_id AS audit_logs_actor_id, audit_logs.action AS audit_logs_action, audit_logs.resource_type AS audit_logs_resource_type, audit_logs.resource_id AS audit_logs_resource_id, audit_logs.metadata AS audit_logs_metadata, audit_logs.timestamp AS audit_logs_timestamp, audit_logs.hash AS audit_logs_hash, audit_logs.previous_hash AS audit_logs_previous_hash, audit_logs.signature AS audit_logs_signature 
+FROM audit_logs ORDER BY audit_logs.timestamp ASC
+2026-02-16 15:21:18,925 INFO sqlalchemy.engine.Engine [cached since 60.03s ago] {}
+2026-02-16 15:21:18,928 INFO sqlalchemy.engine.Engine ROLLBACK

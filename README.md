@@ -37,6 +37,13 @@ If you prefer manual control:
 2.  `docker-compose exec backend alembic upgrade head`
 3.  `docker-compose exec backend python seed.py`
 
+## 🧠 Live AI Log Streaming
+To see the "AI Thinking Process" in real-time, you can stream the backend logs directly to your terminal:
+
+```bash
+docker-compose logs -f backend
+```
+
 ## 🔑 Key Features
 - **Dynamic Risk Scoring**: Entities are scored based on their attributes and graph connections.
 - **Graph Visualization**: Interactive force-directed graph (Frontend) showing threat neighborhoods.

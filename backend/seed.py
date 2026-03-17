@@ -1,8 +1,9 @@
 import logging
-from app.db.session import SessionLocal
-from app.db.models import User
+from app.infrastructure.session import SessionLocal
+from app.models.models import User
 from app.core.security import get_password_hash
-from app.db.genesis import sow_chaos
+from app.infrastructure.genesis import sow_chaos
+from app.services.ops.seed_arsenal import seed_operations_arsenal
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -27,6 +28,10 @@ def init_db():
         logger.info("Admin user already exists.")
         
     sow_chaos(db)
+    
+    # Seed Operations Arsenal (Red/Blue Team Scripts)
+    seed_operations_arsenal(db)
+    
     db.close()
 
 if __name__ == "__main__":

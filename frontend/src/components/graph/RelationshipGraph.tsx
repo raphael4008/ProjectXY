@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic';
 import { useRef, useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 
+import { useCommand } from '@/context/CommandContext';
+
 // Dynamic import to avoid SSR issues with canvas
 const ForceGraph2D = dynamic(() => import('react-force-graph-2d'), {
     ssr: false,
@@ -19,6 +21,7 @@ export default function RelationshipGraph({ entityId }: { entityId: string }) {
     const [dimensions, setDimensions] = useState({ w: 800, h: 600 });
     const [graphData, setGraphData] = useState<GraphData>({ nodes: [], links: [] });
     const containerRef = useRef<HTMLDivElement>(null);
+    const { setSelectedTarget, setInterceptOpen } = useCommand();
 
     useEffect(() => {
         if (containerRef.current) {
@@ -57,7 +60,50 @@ export default function RelationshipGraph({ entityId }: { entityId: string }) {
                 }}
                 linkColor={() => 'rgba(255,255,255,0.2)'}
                 backgroundColor="#000000"
-                nodeRelSize={6}
+                nodeCanvasObject={(node: any, ctx, globalScale) => {
+                    const label = node.id;
+                    const fontSize = 12 / globalScale;
+                    const isTarget = node.id === entityId;
+                    const isTraceActive = node.active_trace === true; // Neo4j property
+
+                    // Draw Node
+                    const size = isTarget ? 8 : 6;
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, size, 0, 2 * Math.PI, false);
+                    ctx.fillStyle = isTarget ? '#00f3ff' : (node.group === 3 ? '#ff003c' : '#ffffff');
+                    ctx.fill();
+
+                    // Trace Pulse Effect
+                    if (isTraceActive) {
+                        const time = Date.now();
+                        const pulse = (Math.sin(time / 200) + 1) / 2; // 0 to 1
+                        const pulseSize = size + (pulse * 10);
+
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, pulseSize, 0, 2 * Math.PI, false);
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - pulse})`;
+                        ctx.lineWidth = 2 / globalScale;
+                        ctx.stroke();
+
+                        // Range Circle
+                        ctx.beginPath();
+                        ctx.arc(node.x, node.y, pulseSize * 2, 0, 2 * Math.PI, false);
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${0.2 * (1 - pulse)})`;
+                        ctx.stroke();
+                    }
+
+                    // Label
+                    ctx.font = `${fontSize}px Sans-Serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.fillText(label, node.x, node.y + size + fontSize);
+                }}
+                onNodeClick={(node: any) => {
+                    setSelectedTarget(node.id);
+                    // Optional: auto-open modal or just select
+                    // setInterceptOpen(true); 
+                }}
             />
         </div>
     );

@@ -1,33 +1,42 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
+import type { Metadata } from 'next';
+import './globals.css';
+import Sidebar from '@/components/Layout/Sidebar';
+import GlobalHeader from '@/components/Layout/GlobalHeader';
+import OmniProbe from '@/components/Layout/OmniProbe';
+import CommandPalette from '@/components/Layout/CommandPalette';
+import NexusOracle from '@/components/AI/NexusOracle';
+import { AuthProvider } from '@/components/providers/AuthProvider';
 
 export const metadata: Metadata = {
-    title: "Cyber Intel | ProjectXY",
-    description: "Lawful OSINT Analysis Platform",
+    title: 'ProjectXY | Cyber Intelligence',
+    description: 'Advanced Threat Intelligence & Red Team Operations',
 };
-
-import { AuthProvider } from "@/components/providers/AuthProvider";
 
 export default function RootLayout({
     children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+}: {
+    children: React.ReactNode
+}) {
     return (
-        <html lang="en" className="dark">
-            <body className={`${inter.variable} ${jetbrains.variable} bg-background text-gray-100 font-sans antialiased overflow-hidden`}>
+        <html lang="en">
+            <body className={`font-sans bg-[#050505] text-white overflow-hidden antialiased`}>
                 <AuthProvider>
-                    <div className="flex h-screen w-screen relative">
-                        {/* Global Background Grid/Micro-interactions can go here */}
-                        <div className="absolute inset-0 bg-[url('/assets/grid.svg')] opacity-10 pointer-events-none z-0"></div>
+                    <div className="flex h-screen">
+                        {/* Sidebar Navigation */}
+                        <div className="hidden lg:block w-64 flex-shrink-0">
+                            <Sidebar />
+                        </div>
 
-                        <main className="z-10 w-full h-full flex flex-col">
-                            {children}
-                        </main>
+                        {/* Main Content Area */}
+                        <div className="flex-1 flex flex-col min-w-0 bg-[#050505] relative">
+                            <GlobalHeader />
+                            <CommandPalette />
+                            <OmniProbe />
+                            <main className="flex-1 overflow-auto pt-16 p-6">
+                                {children}
+                            </main>
+                            <NexusOracle />
+                        </div>
                     </div>
                 </AuthProvider>
             </body>

@@ -38,3 +38,30 @@ Relationships:
 
 // Q3: Find "Bridge" nodes (Entities connecting two disparate groups)
 // MATCH (n) WHERE size((n)--()) > 10 RETURN n, size((n)--()) AS connectivity ORDER BY connectivity DESC LIMIT 10
+
+// 5. ProjectXY Omni-Graph Cyber Nodes (The Synapse)
+
+// Constraints
+CREATE CONSTRAINT honeypot_name_unique IF NOT EXISTS FOR (h:Honeypot) REQUIRE h.name IS UNIQUE;
+CREATE CONSTRAINT digital_twin_id_unique IF NOT EXISTS FOR (d:DigitalTwin) REQUIRE d.id IS UNIQUE;
+CREATE CONSTRAINT asn_number_unique IF NOT EXISTS FOR (a:AutonomousSystem) REQUIRE a.number IS UNIQUE;
+CREATE CONSTRAINT ipaddress_ip_unique IF NOT EXISTS FOR (i:IPAddress) REQUIRE i.ip IS UNIQUE;
+
+// Indexes
+CREATE INDEX attacker_ip_index IF NOT EXISTS FOR (i:IPAddress) ON (i.ip);
+CREATE INDEX attacker_risk_index IF NOT EXISTS FOR (i:IPAddress) ON (i.risk_score);
+CREATE INDEX interaction_timestamp_index IF NOT EXISTS FOR ()-[r:TARGETED]-() ON (r.timestamp);
+
+/*
+Omni-Graph Nodes:
+(:IPAddress {ip, type, last_seen, country, city, risk_score})
+(:AutonomousSystem {number, org})
+(:Honeypot {name, type})
+(:InternalAsset {id, hostname})
+(:DigitalTwin {id, source_asset, zone})
+
+Omni-Graph Relational Flow (The Aegis):
+(IPAddress)-[:ROUTED_THROUGH]->(AutonomousSystem)
+(IPAddress)-[:TARGETED {port, protocol, interaction, timestamp}]->(Honeypot)
+(IPAddress)-[:REROUTED_TO {timestamp}]->(DigitalTwin)
+*/

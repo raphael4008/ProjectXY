@@ -44,6 +44,17 @@ class Settings(BaseSettings):
     NEO4J_USER: str = os.getenv("NEO4J_USER", "neo4j")
     NEO4J_PASSWORD: str = os.getenv("NEO4J_PASSWORD", "password")
 
-    model_config = SettingsConfigDict(case_sensitive=True, env_file=".env")
+    # REDIS CACHE
+    REDIS_URL: str = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+
+    # OSINT API KEYS
+    SHODAN_API_KEY: str | None = os.getenv("SHODAN_API_KEY")
+    CENSYS_API_ID: str | None = os.getenv("CENSYS_API_ID")
+    CENSYS_API_SECRET: str | None = os.getenv("CENSYS_API_SECRET")
+    INTEL_X_API_KEY: str | None = os.getenv("INTEL_X_API_KEY")
+    ALIENVAULT_API_KEY: str | None = os.getenv("ALIENVAULT_API_KEY")
+    LEAK_LOOKUP_API_KEY: str | None = os.getenv("LEAK_LOOKUP_API_KEY")
+
+    model_config = SettingsConfigDict(case_sensitive=True, env_file=".env", extra="ignore")
 
 settings = Settings()

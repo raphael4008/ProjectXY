@@ -19,6 +19,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    ports:
+      - "5433:5432"
 
   # 2. Database (Graph)
   neo4j:
@@ -36,16 +38,64 @@ services:
     networks:
       - backend-net
 
-  # 3. Backend API
-  backend:
-    build: ./backend
+  # 3. Cache & In-Memory State
+  redis:
+    image: redis:7-alpine
     restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend-net
+
+  # 4. Message Broker (Tier 1 Ingestion)
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - backend-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    networks:
+      - backend-net
+
+  # 4. Backend API
+  backend:
+    build:
+      context: ./backend
+      no_cache: true
+    restart: always
+    env_file:
+      - .env
     environment:
       POSTGRES_SERVER: postgres
       NEO4J_URI: bolt://neo4j:7687
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      REDIS_URL: redis://redis:6379/0
+      BACKEND_CORS_ORIGINS: '["http://localhost:3000", "http://localhost:3000/"]'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./backend:/app
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_started
       neo4j:
         condition: service_started
     ports:
@@ -55,7 +105,11 @@ services:
 
   # 4. Frontend Dashboard
   frontend:
-    build: ./frontend
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: sh -c "rm -rf .next && rm -rf node_modules/.cache && npm install && npm run dev"
     restart: always
     depends_on:
       - backend
@@ -67,6 +121,7 @@ services:
 volumes:
   postgres_data:
   neo4j_data:
+  redis_data:
 
 
 networks:

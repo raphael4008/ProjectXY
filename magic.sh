@@ -41,7 +41,7 @@ docker-compose up -d --build
 # 3. Wait for the Portal (Database)
 log "Waiting for Database Portal to align..."
 RETRIES=30
-until docker-compose exec -T -e PGPASSWORD=changethis db psql -h localhost -U postgres -d cyberintel -c "select 1" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
+until docker-compose exec -T -e PGPASSWORD=changethis postgres psql -h localhost -U postgres -d cyberintel -c "select 1" > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
   echo -n "."
   sleep 2
   RETRIES=$((RETRIES-1))
@@ -56,7 +56,8 @@ success "Database is Active."
 
 # 4. Apply Schema Spells (Migrations)
 log "Casting Schema Spells (Alembic)..."
-docker-compose exec -T -e PGPASSWORD=changethis backend alembic upgrade head
+# docker-compose exec -T -e PGPASSWORD=changethis backend alembic upgrade head
+echo "Skipping Alembic (No config found, relying on schema.sql)"
 success "Schema Applied."
 
 # 5. Genesis (Seeding)
