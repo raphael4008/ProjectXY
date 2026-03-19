@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from app.modules.auth.endpoints import auth
 from app.api.v1.endpoints import ingestion
 from app.api.v1.ops import router as ops_router
+from app.api.v1 import warroom
 from app.modules.deception import endpoints as deception
 from app.modules.ai_swarms import endpoints as ai_swarms
 from app.modules.sandbox import endpoints as sandbox
@@ -25,6 +26,7 @@ api_router.include_router(action_router.router)
 api_router.include_router(threat_actor_router.router)
 
 api_router.include_router(ops_router, tags=["Operations - Script Library & Execution"])
+api_router.include_router(warroom.router, prefix="/warroom", tags=["War Room - Command Center"])
 api_router.include_router(ingestion.router, prefix="/ingest", tags=["Telemetry Ingestion"])
 api_router.include_router(omni_probe.router, prefix="/recon", tags=["Absolute Reconnaissance - Omni-Probe"])
 api_router.include_router(deception.router, prefix="/deception", tags=["Deception Ops - The Labyrinth"])

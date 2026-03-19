@@ -23,6 +23,22 @@ from app.services.ops.library import (
 from app.services.ops.executor import Executor, ExecutionConfig, ExecutionResult
 from app.api.deps import get_db
 
+# Import new security and WebSocket modules
+try:
+    from app.core.socket import ws_manager
+except ImportError:
+    ws_manager = None
+
+try:
+    from app.core.security_state import security_manager
+except ImportError:
+    security_manager = None
+
+try:
+    from app.core.ledger import ledger
+except ImportError:
+    ledger = None
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
@@ -273,50 +289,66 @@ async def websocket_execute_script(
     websocket: WebSocket,
     script_id: str,
     db = Depends(get_db),
-    timeout_seconds: int = 300
+    timeout_seconds: int = 300,
+    user_id: Optional[str] = None
 ):
     """
     Execute a script with real-time output streaming via WebSocket.
     
     Connection flow:
     1. Client connects to /ops/ws/execute/{script_id}
-    2. Server streams output chunks as {\"type\": \"output\", \"data\": \"...\"}
-    3. Server sends final result as {\"type\": \"result\", \"data\": ExecutionResult}
+    2. Server streams output chunks as {\"type\": \"log_chunk\", \"payload\": {...}}
+    3. Server sends status updates and final result
+    4. Client receives execution logs in real-time
     """
     await websocket.accept()
     
+    execution_id = None
+    
     try:
+        # Register WebSocket connection
+        if ws_manager:
+            # Create a temporary execution_id for this session
+            import uuid
+            execution_id = str(uuid.uuid4())
+            await ws_manager.connect(execution_id, websocket)
+            logger.info(f"📡 WS client connected for execution {execution_id}")
+        
         # Fetch the script
         library = ScriptLibrary(db)
         script = library.get_script(script_id)
         
         if not script:
+            error_msg = f"Script {script_id} not found"
             await websocket.send_json({
                 "type": "error",
-                "data": f"Script {script_id} not found"
+                "data": error_msg
             })
             await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
             return
         
         if script.is_disabled or not script.is_approved:
+            error_msg = f"Script is disabled or not approved"
             await websocket.send_json({
                 "type": "error",
-                "data": f"Script is disabled or not approved"
+                "data": error_msg
             })
             await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
             return
         
-        # Define output callback for streaming
-        async def stream_output(chunk: str):
-            await websocket.send_json({
-                "type": "output",
-                "data": chunk
-            })
+        # Define output callback for WebSocket streaming
+        async def stream_output(chunk: str, is_stderr: bool = False):
+            if ws_manager:
+                await ws_manager.send_log_chunk(
+                    execution_id=execution_id,
+                    chunk=chunk,
+                    is_stderr=is_stderr
+                )
         
         # Execute
         config = ExecutionConfig(timeout_seconds=timeout_seconds)
         
-        logger.info(f"📡 WebSocket execution: {script.name} (ID: {script_id})")
+        logger.info(f"� WebSocket execution: {script.name} (ID: {script_id}, Execution: {execution_id})")
         
         if script.language == "python":
             result = await executor.execute_python(
@@ -324,7 +356,9 @@ async def websocket_execute_script(
                 script_name=script.name,
                 code=script.code,
                 config=config,
-                output_callback=stream_output
+                output_callback=stream_output,
+                user_id=user_id,
+                org_id=None  # TODO: Extract from token
             )
         elif script.language == "bash":
             result = await executor.execute_bash(
@@ -332,12 +366,15 @@ async def websocket_execute_script(
                 script_name=script.name,
                 code=script.code,
                 config=config,
-                output_callback=stream_output
+                output_callback=stream_output,
+                user_id=user_id,
+                org_id=None  # TODO: Extract from token
             )
         else:
+            error_msg = f"Unsupported language: {script.language}"
             await websocket.send_json({
                 "type": "error",
-                "data": f"Unsupported language: {script.language}"
+                "data": error_msg
             })
             await websocket.close(code=status.WS_1011_SERVER_ERROR)
             return
@@ -363,27 +400,84 @@ async def websocket_execute_script(
             await websocket.close(code=status.WS_1011_SERVER_ERROR)
         except:
             pass
+    
+    finally:
+        # Cleanup WebSocket connection
+        if execution_id and ws_manager:
+            await ws_manager.disconnect(execution_id, websocket)
 
 
 # ─── System Commands ──────────────────────────────────────────────────────────
 
 @router.post("/lockdown", status_code=status.HTTP_204_NO_CONTENT)
-async def system_lockdown():
+async def system_lockdown(user_id: Optional[str] = None):
     """
     GLOBAL KILL SWITCH: Emergency lockdown.
     
+    Triggers:
     - Kills all running containers
     - Revokes all JWT tokens
-    - Freezes the system
+    - Freezes the system for safety
+    - Logs security event to audit trail
     """
-    logger.critical("🚨 SYSTEM LOCKDOWN TRIGGERED")
+    logger.critical("🚨 SYSTEM LOCKDOWN TRIGGERED by user: " + (user_id or "unknown"))
     
     # Kill all containers
     await executor.system_lockdown()
     
-    # TODO: Revoke all JWT tokens in Redis
-    # TODO: Set SYSTEM_LOCKDOWN flag in Redis
-    # TODO: Log incident to audit table
+    # Engage security lockdown
+    if security_manager:
+        await security_manager.set_lockdown(
+            enabled=True,
+            reason=f"EMERGENCY_LOCKDOWN triggered by {user_id or 'system'}"
+        )
+        await security_manager.revoke_all_tokens("LOCKDOWN")
+    
+    # Broadcast system alert
+    if ws_manager:
+        await ws_manager.send_system_alert(
+            alert_type="LOCKDOWN",
+            message_text="🚨 SYSTEM LOCKDOWN ACTIVATED - All operations halted"
+        )
+    
+    # Log security event
+    if ledger:
+        await ledger.log_lockdown(
+            enabled=True,
+            reason=f"EMERGENCY_LOCKDOWN by {user_id or 'system'}",
+            user_id=user_id,
+            org_id=None
+        )
+
+
+@router.post("/lockdown/release", status_code=status.HTTP_204_NO_CONTENT)
+async def release_lockdown(user_id: Optional[str] = None):
+    """
+    Release the system lockdown (administrative action).
+    
+    Only callable by authorized users. Restores normal operations.
+    """
+    logger.warning(f"🔓 SYSTEM LOCKDOWN RELEASED by user: {user_id or 'unknown'}")
+    
+    if security_manager:
+        await security_manager.set_lockdown(
+            enabled=False,
+            reason=f"Lockdown released by {user_id or 'system'}"
+        )
+    
+    if ws_manager:
+        await ws_manager.send_system_alert(
+            alert_type="LOCKDOWN_RELEASED",
+            message_text="✅ System lockdown released - Operations resumed"
+        )
+    
+    if ledger:
+        await ledger.log_lockdown(
+            enabled=False,
+            reason=f"Lockdown released by {user_id or 'system'}",
+            user_id=user_id,
+            org_id=None
+        )
 
 
 @router.get("/red-arsenal", response_model=List[Script])

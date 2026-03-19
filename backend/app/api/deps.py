@@ -83,3 +83,99 @@ def get_current_active_superuser(current_user: User = Depends(get_current_active
         )
     return current_user
 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Intelligence Services DI Factories (org-scoped)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def get_org_id_from_request(request: Request) -> str:
+    """
+    Extract org_id from request context (header or JWT claim).
+    
+    Priority:
+    1. X-Org-ID header
+    2. org_id claim in JWT token
+    3. Default to 'default_org'
+    """
+    # Try header first
+    org_id = request.headers.get("X-Org-ID")
+    if org_id:
+        return org_id
+    
+    # Try JWT claim
+    token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    if token:
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[security.ALGORITHM])
+            org_id = payload.get("org_id")
+            if org_id:
+                return org_id
+        except:
+            pass
+    
+    # Default
+    return "default_org"
+
+
+def get_attribution_engine(
+    current_user: User = Depends(get_current_active_user),
+    request: Request = None
+):
+    """
+    Returns an org-scoped AttributionEngine instance for threat actor correlation.
+    
+    Usage in endpoint:
+        @router.post("/correlate")
+        async def correlate(indicators: List[str], engine = Depends(get_attribution_engine)):
+            return await engine.correlate_indicators(indicators)
+    """
+    from app.core.intelligence_di import get_di_container
+    
+    container = get_di_container()
+    org_id = get_org_id_from_request(request) if request else "default_org"
+    
+    engine = container.get_attribution_engine(org_id=org_id)
+    return engine
+
+
+def get_microseg_service(
+    current_user: User = Depends(get_current_active_user),
+    request: Request = None
+):
+    """
+    Returns an org-scoped MicrosegmentationService for automated containment.
+    
+    Usage in endpoint:
+        @router.post("/isolate")
+        async def isolate(host: str, service = Depends(get_microseg_service)):
+            return await service.isolate_host(...)
+    """
+    from app.core.intelligence_di import get_di_container
+    
+    container = get_di_container()
+    org_id = get_org_id_from_request(request) if request else "default_org"
+    
+    service = container.get_microseg_service(org_id=org_id)
+    return service
+
+
+def get_request_orchestrator(
+    current_user: User = Depends(get_current_active_user),
+    request: Request = None
+):
+    """
+    Returns an org-scoped DistributedRequestOrchestrator for resilient API queries.
+    
+    Usage in endpoint:
+        @router.post("/query")
+        async def query(url: str, orchestrator = Depends(get_request_orchestrator)):
+            return await orchestrator.request("GET", url)
+    """
+    from app.core.intelligence_di import get_di_container
+    
+    container = get_di_container()
+    org_id = get_org_id_from_request(request) if request else "default_org"
+    
+    orchestrator = container.get_request_orchestrator(org_id=org_id)
+    return orchestrator
+

@@ -10,6 +10,11 @@ Safety Features:
 - Network isolation (no external network by default)
 - Timeout enforcement (300s default)
 - Automatic container cleanup
+
+Integration:
+- WebSocket streaming via socket.py (real-time log broadcasting)
+- Security state management via security_state.py (SYSTEM_LOCKDOWN, JWT revocation)
+- Postgres ledger logging via ledger.py (immutable audit trail)
 """
 
 import asyncio
@@ -23,6 +28,22 @@ from enum import Enum
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
+
+# Import companion modules
+try:
+    from app.core.socket import ws_manager, MessageType, WSMessage
+except ImportError:
+    ws_manager = None
+
+try:
+    from app.core.security_state import security_manager
+except ImportError:
+    security_manager = None
+
+try:
+    from app.core.ledger import ledger
+except ImportError:
+    ledger = None
 
 # ─── Enums ────────────────────────────────────────────────────────────────────
 
@@ -91,8 +112,33 @@ class Executor:
 
         self.running_containers: Dict[str, str] = {}  # execution_id -> container_id
         self.results: Dict[str, ExecutionResult] = {}  # execution_id -> result
+        self.user_id: Optional[str] = None  # Will be set per execution
+        self.org_id: Optional[str] = None  # Will be set per execution
+
 
     # ─── Execution ─────────────────────────────────────────────────────────
+
+    async def _check_lockdown(self, execution_id: str) -> bool:
+        """
+        Check if SYSTEM_LOCKDOWN is active. If so, prevent execution.
+        
+        Args:
+            execution_id: Execution ID for logging
+            
+        Returns:
+            True if lockdown is active (execution should not proceed)
+        """
+        if security_manager:
+            lockdown = await security_manager.get_lockdown_state()
+            if lockdown:
+                logger.error(f"🚨 Execution blocked due to SYSTEM_LOCKDOWN: {execution_id}")
+                if ws_manager:
+                    await ws_manager.send_system_alert(
+                        "LOCKDOWN",
+                        "System is in lockdown mode. Executions are blocked."
+                    )
+                return True
+        return False
 
     async def execute_python(
         self,
@@ -100,7 +146,9 @@ class Executor:
         script_name: str,
         code: str,
         config: ExecutionConfig = None,
-        output_callback: Optional[Callable[[str], None]] = None
+        output_callback: Optional[Callable[[str], None]] = None,
+        user_id: Optional[str] = None,
+        org_id: Optional[str] = None
     ) -> ExecutionResult:
         """
         Execute Python script in a Docker container.
@@ -111,6 +159,8 @@ class Executor:
             code: Python code to execute
             config: ExecutionConfig (resource limits, timeouts)
             output_callback: Async callback for output chunks (for WebSocket streaming)
+            user_id: User initiating the execution (for audit trail)
+            org_id: Organization context (for audit trail)
             
         Returns:
             ExecutionResult with status, stdout, stderr, exit code
@@ -119,8 +169,46 @@ class Executor:
             config = ExecutionConfig()
 
         execution_id = str(uuid.uuid4())
+        self.user_id = user_id
+        self.org_id = org_id
 
         logger.info(f"🚀 Executing Python script: {script_name} (ID: {execution_id})")
+
+        # Check for SYSTEM_LOCKDOWN
+        if await self._check_lockdown(execution_id):
+            start_time = datetime.utcnow()
+            result = ExecutionResult(
+                execution_id=execution_id,
+                script_id=script_id,
+                script_name=script_name,
+                status=ExecutionStatus.FAILED,
+                exit_code=-1,
+                stdout="",
+                stderr="System is in lockdown mode",
+                started_at=start_time,
+                completed_at=start_time,
+                duration_seconds=0,
+                error_message="SYSTEM_LOCKDOWN"
+            )
+            return result
+
+        # Log execution start to ledger
+        if ledger:
+            await ledger.log_execution_started(
+                execution_id=execution_id,
+                script_id=script_id,
+                script_name=script_name,
+                user_id=user_id,
+                org_id=org_id
+            )
+
+        # Notify frontend via WebSocket
+        if ws_manager:
+            await ws_manager.send_status_update(
+                execution_id=execution_id,
+                status="RUNNING",
+                details={"script_name": script_name, "script_id": script_id}
+            )
 
         # Create a temporary file in the container
         container_script_path = f"/tmp/{script_id}.py"
@@ -203,6 +291,26 @@ class Executor:
                 f"[Status: {status}, Exit Code: {exit_code}, Duration: {duration:.2f}s]"
             )
 
+            # Log completion to ledger
+            if ledger:
+                await ledger.log_execution_completed(
+                    execution_id=execution_id,
+                    exit_code=exit_code,
+                    duration_seconds=duration,
+                    stdout=stdout_data,
+                    stderr=stderr_data,
+                    user_id=self.user_id,
+                    org_id=self.org_id
+                )
+
+            # Notify frontend of completion
+            if ws_manager:
+                await ws_manager.send_completion(
+                    execution_id=execution_id,
+                    exit_code=exit_code,
+                    duration_seconds=duration
+                )
+
             return result
 
         except Exception as e:
@@ -236,6 +344,26 @@ class Executor:
             )
 
             self.results[execution_id] = result
+
+            # Log failure to ledger
+            if ledger:
+                await ledger.log_execution_completed(
+                    execution_id=execution_id,
+                    exit_code=-1,
+                    duration_seconds=duration,
+                    stdout="",
+                    stderr=str(e),
+                    user_id=self.user_id,
+                    org_id=self.org_id
+                )
+
+            # Notify frontend of failure
+            if ws_manager:
+                await ws_manager.send_system_alert(
+                    "EXECUTION_ERROR",
+                    f"Execution {script_name} failed: {str(e)}"
+                )
+
             return result
 
     async def execute_bash(
@@ -244,7 +372,9 @@ class Executor:
         script_name: str,
         code: str,
         config: ExecutionConfig = None,
-        output_callback: Optional[Callable[[str], None]] = None
+        output_callback: Optional[Callable[[str], None]] = None,
+        user_id: Optional[str] = None,
+        org_id: Optional[str] = None
     ) -> ExecutionResult:
         """
         Execute Bash script in a Docker container.
@@ -255,6 +385,8 @@ class Executor:
             code: Bash code to execute
             config: ExecutionConfig
             output_callback: Async callback for output streaming
+            user_id: User initiating the execution (for audit trail)
+            org_id: Organization context (for audit trail)
             
         Returns:
             ExecutionResult
@@ -263,8 +395,46 @@ class Executor:
             config = ExecutionConfig()
 
         execution_id = str(uuid.uuid4())
+        self.user_id = user_id
+        self.org_id = org_id
 
         logger.info(f"🚀 Executing Bash script: {script_name} (ID: {execution_id})")
+
+        # Check for SYSTEM_LOCKDOWN
+        if await self._check_lockdown(execution_id):
+            start_time = datetime.utcnow()
+            result = ExecutionResult(
+                execution_id=execution_id,
+                script_id=script_id,
+                script_name=script_name,
+                status=ExecutionStatus.FAILED,
+                exit_code=-1,
+                stdout="",
+                stderr="System is in lockdown mode",
+                started_at=start_time,
+                completed_at=start_time,
+                duration_seconds=0,
+                error_message="SYSTEM_LOCKDOWN"
+            )
+            return result
+
+        # Log execution start to ledger
+        if ledger:
+            await ledger.log_execution_started(
+                execution_id=execution_id,
+                script_id=script_id,
+                script_name=script_name,
+                user_id=user_id,
+                org_id=org_id
+            )
+
+        # Notify frontend via WebSocket
+        if ws_manager:
+            await ws_manager.send_status_update(
+                execution_id=execution_id,
+                status="RUNNING",
+                details={"script_name": script_name, "script_id": script_id}
+            )
 
         container_script_path = f"/tmp/{script_id}.sh"
 
@@ -328,6 +498,27 @@ class Executor:
             )
 
             self.results[execution_id] = result
+
+            # Log completion to ledger
+            if ledger:
+                await ledger.log_execution_completed(
+                    execution_id=execution_id,
+                    exit_code=exit_code,
+                    duration_seconds=duration,
+                    stdout=logs if exit_code == 0 else "",
+                    stderr=logs if exit_code != 0 else "",
+                    user_id=self.user_id,
+                    org_id=self.org_id
+                )
+
+            # Notify frontend of completion
+            if ws_manager:
+                await ws_manager.send_completion(
+                    execution_id=execution_id,
+                    exit_code=exit_code,
+                    duration_seconds=duration
+                )
+
             return result
 
         except Exception as e:
@@ -370,27 +561,32 @@ class Executor:
         output_callback: Optional[Callable[[str], None]] = None
     ) -> int:
         """
-        Wait for a container to finish and capture output.
+        Wait for a container to finish and capture output in real-time.
         
         Args:
             container: Docker container object
-            output_callback: Async callback for output streaming
+            output_callback: Async callback for output streaming (called per chunk)
             
         Returns:
             Exit code
         """
         loop = asyncio.get_event_loop()
 
+        # Stream logs in real-time
+        if output_callback:
+            try:
+                logs_stream = container.logs(stream=True, follow=True)
+                for log_chunk in logs_stream:
+                    decoded_chunk = log_chunk.decode('utf-8', errors='replace')
+                    if decoded_chunk:
+                        await output_callback(decoded_chunk)
+            except Exception as e:
+                logger.warning(f"Failed to stream logs: {e}")
+
         def wait_for_exit():
             return container.wait()
 
         exit_code = await loop.run_in_executor(None, wait_for_exit)
-
-        # Get final logs
-        logs = container.logs(stdout=True, stderr=True).decode('utf-8', errors='replace')
-
-        if output_callback and logs:
-            await output_callback(logs)
 
         return exit_code.get('StatusCode', -1) if isinstance(exit_code, dict) else exit_code
 

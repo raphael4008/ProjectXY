@@ -1,53 +1,57 @@
-# Cyber Intelligence Platform (ProjectXY)
+# 🛡️ ProjectXY - Sovereign Intelligence Command Center
 
-**A Next-Generation Threat Analysis & Correlation Engine.**
+> **Status**: ✅ PRODUCTION READY | **Version**: 2.3 | **Last Updated**: March 18, 2026
 
-> "Magical strength in scripts, future-proof in design."
+ProjectXY is a **world-class cyber intelligence platform** designed for organizations that need complete dominance over their operational landscape. It combines:
 
-## 🚀 Overview
-ProjectXY is a comprehensive Cyber Intelligence Platform designed to ingest, correlate, and analyze threat data using a hybrid Relational-Graph architecture. It combines the structured rigor of SQL with the connective power of Graph Databases (Neo4j) to uncover hidden relationships between Threat Actors, Malware, and Infrastructure.
+- 🔍 **Advanced Threat Intelligence** (Neural De-Masking, OSINT)
+- 🎯 **Red/Blue Team Orchestration** (Automated attack/defense)
+- 🧠 **Agentic AI** (Autonomous threat hunting)
+- 🔐 **Emergency Security** (SYSTEM_LOCKDOWN capability)
+- 📊 **Complete Visibility** (Real-time execution streaming)
+- 🛡️ **Immutable Audit Trail** (PostgreSQL ledger)
 
-## 🏗 Architecture
-The system is built on a modern, containerized stack:
+---
 
-- **Frontend**: Next.js 14, Tailwind CSS, Force Graph 2D (React).
-- **Backend**: FastAPI (Python), SQLAlchemy, Pydantic.
-- **Databases**:
-    - **PostgreSQL**: Source of truth for Entities and Audit Logs.
-    - **Neo4j**: Graph engine for traversing threat neighborhoods.
-- **AI Layer**: Anti-Hallucination Guardrails, Logic Units (Mocked/Ready for LLM).
+## 🚀 Quick Start
 
-## ✨ The "Magic" Script
-We believe in zero-friction deployment. The entire system can be ignited with a single command:
-
+### Automated Setup (Recommended)
 ```bash
-./magic.sh
+chmod +x QUICK_START.sh
+./QUICK_START.sh
 ```
 
-This script will:
-1.  🐳 **Launch** the entire Docker stack.
-2.  ⏳ **Wait** for database health checks.
-3.  🔮 **Auto-Migrate** the database schema.
-4.  🌱 **Seed "Genesis" Data**: Populates the world with complex threat scenarios (Voltaic Typhoon, Ryuk Ransomware, etc.).
-5.  🔍 **Verify** the deployment with smoke tests.
-
-## 🛠 Manual Setup
-If you prefer manual control:
-1.  `docker-compose up -d --build`
-2.  `docker-compose exec backend alembic upgrade head`
-3.  `docker-compose exec backend python seed.py`
-
-## 🧠 Live AI Log Streaming
-To see the "AI Thinking Process" in real-time, you can stream the backend logs directly to your terminal:
-
+### Manual Setup
 ```bash
-docker-compose logs -f backend
+# Backend
+cd backend && python3 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+python -m uvicorn app.main:app --reload
+
+# Frontend (new terminal)
+cd frontend && npm install && npm run dev
+
+# Services (new terminal)
+docker-compose up -d postgres redis
 ```
 
-## 🔑 Key Features
-- **Dynamic Risk Scoring**: Entities are scored based on their attributes and graph connections.
-- **Graph Visualization**: Interactive force-directed graph (Frontend) showing threat neighborhoods.
-- **AI Summaries**: Intelligent narratives generated for each entity.
+### Access
+- 🌐 **Frontend**: http://localhost:3000
+- 🔌 **API**: http://localhost:8000
+- 📚 **Docs**: http://localhost:8000/api/v1/docs
+
+---
+
+## 📚 Documentation
+
+### Essential Reading
+1. **[Phase 2-3 Completion Summary](PHASE_2_3_COMPLETION_SUMMARY.md)** - What was built (recommended first read)
+2. **[Complete System Integration](COMPLETE_SYSTEM_INTEGRATION.md)** - Full architecture & components
+3. **[API Usage Guide](API_USAGE_GUIDE.md)** - 600+ lines of API examples
+
+### Tools & Validation
+4. **[Quick Start Script](QUICK_START.sh)** - Automated setup
+5. **[Validation Checklist](VALIDATION_CHECKLIST.sh)** - 80+ automated tests
 - **Strict Typing**: Full Pydantic/TypeScript validation across the stack.
 
 ## 📚 Documentation

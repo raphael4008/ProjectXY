@@ -12,7 +12,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LineChart, Line, GeoChart, Geo, ResponsiveContainer, XAxis, YAxis } from 'recharts';
-import { AlertTriangle, Shield, Zap, Radio, TrendingUp, Users, Lock, Globe } from 'lucide-react';
+import { AlertTriangle, Shield, Zap, Radio, TrendingUp, Users, Lock, Globe, Play, Pause, Send } from 'lucide-react';
 
 interface RiskMetric {
   country: string;
@@ -48,6 +48,13 @@ interface BattlefieldAsset {
   value: number;
 }
 
+interface DossierData {
+  actor_id: string;
+  confidence: number;
+  observations: number;
+  enriched_matches: number;
+}
+
 export const WarRoomCommandDeck: React.FC = () => {
   const [riskData, setRiskData] = useState<RiskMetric[]>([]);
   const [threatActors, setThreatActors] = useState<ThreatActor[]>([]);
@@ -56,6 +63,16 @@ export const WarRoomCommandDeck: React.FC = () => {
   const [selectedQuadrant, setSelectedQuadrant] = useState<number | null>(null);
   const [systemStatus, setSystemStatus] = useState('OPTIMAL');
   const [threatLevel, setThreatLevel] = useState<'critical' | 'high' | 'medium' | 'low'>('medium');
+  
+  // New state for attribution and containment
+  const [attributionIndicators, setAttributionIndicators] = useState<string[]>([]);
+  const [attributionInput, setAttributionInput] = useState('');
+  const [dossierData, setDossierData] = useState<DossierData | null>(null);
+  const [isCorrelating, setIsCorrelating] = useState(false);
+  const [containmentHost, setContainmentHost] = useState('');
+  const [containmentSeverity, setContainmentSeverity] = useState(9);
+  const [isIsolating, setIsIsolating] = useState(false);
+  const [feedbackMessage, setFeedbackMessage] = useState<{ type: 'success' | 'error' | 'info', text: string } | null>(null);
 
   // Fetch risk data for Quadrant 1
   useEffect(() => {
@@ -204,6 +221,81 @@ export const WarRoomCommandDeck: React.FC = () => {
     
     setBattlefieldAssets(mockAssets);
   }, []);
+
+  // API Integration: Attribution Engine
+  const correlateIndicators = useCallback(async () => {
+    if (attributionIndicators.length === 0) {
+      setFeedbackMessage({ type: 'error', text: 'Add at least one indicator' });
+      return;
+    }
+    
+    setIsCorrelating(true);
+    try {
+      const response = await fetch('/api/v1/warroom/attribution/correlate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          indicators: attributionIndicators,
+          metadata: { note: 'War Room initiated correlation' }
+        })
+      });
+      
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      setDossierData(data);
+      setFeedbackMessage({ type: 'success', text: `Actor ${data.actor_id} (${(data.confidence * 100).toFixed(1)}% confidence)` });
+    } catch (error) {
+      setFeedbackMessage({ type: 'error', text: `Correlation failed: ${error}` });
+    } finally {
+      setIsCorrelating(false);
+    }
+  }, [attributionIndicators]);
+
+  const addIndicator = useCallback(() => {
+    if (attributionInput.trim()) {
+      setAttributionIndicators([...attributionIndicators, attributionInput]);
+      setAttributionInput('');
+    }
+  }, [attributionInput, attributionIndicators]);
+
+  const removeIndicator = useCallback((index: number) => {
+    setAttributionIndicators(attributionIndicators.filter((_, i) => i !== index));
+  }, [attributionIndicators]);
+
+  // API Integration: Containment Service
+  const isolateHost = useCallback(async () => {
+    if (!containmentHost.trim()) {
+      setFeedbackMessage({ type: 'error', text: 'Enter a host identifier' });
+      return;
+    }
+    
+    if (containmentSeverity < 9) {
+      setFeedbackMessage({ type: 'error', text: 'Severity must be P1 (≥9) for isolation' });
+      return;
+    }
+    
+    setIsIsolating(true);
+    try {
+      const response = await fetch('/api/v1/warroom/containment/isolate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          host_identifier: containmentHost,
+          severity: containmentSeverity,
+          reason: 'War Room initiated isolation'
+        })
+      });
+      
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      setFeedbackMessage({ type: 'success', text: `Isolation ${data.outcome}: ${containmentHost}` });
+      setThreatLevel('critical');
+    } catch (error) {
+      setFeedbackMessage({ type: 'error', text: `Isolation failed: ${error}` });
+    } finally {
+      setIsIsolating(false);
+    }
+  }, [containmentHost, containmentSeverity]);
 
   return (
     <div className="w-full h-screen bg-black/95 text-white overflow-hidden">
