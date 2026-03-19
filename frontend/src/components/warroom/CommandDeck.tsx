@@ -594,6 +594,181 @@ export const WarRoomCommandDeck: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* ATTRIBUTION & CONTAINMENT CONTROL PANEL (Floating Glassmorphism) */}
+      <AnimatePresence>
+        {selectedQuadrant === null && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-6 right-6 w-96 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-6 shadow-2xl"
+          >
+            {/* Feedback Message */}
+            {feedbackMessage && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className={`mb-4 p-3 rounded-lg text-sm font-mono ${
+                  feedbackMessage.type === 'success' ? 'bg-green-500/10 border border-green-500/30 text-green-300' :
+                  feedbackMessage.type === 'error' ? 'bg-red-500/10 border border-red-500/30 text-red-300' :
+                  'bg-blue-500/10 border border-blue-500/30 text-blue-300'
+                }`}
+              >
+                {feedbackMessage.text}
+              </motion.div>
+            )}
+
+            {/* Tabs */}
+            <div className="flex gap-2 mb-4 border-b border-white/10">
+              <button
+                onClick={() => setSelectedQuadrant(1)}
+                className="flex-1 px-3 py-2 text-xs font-mono text-cyan-400 hover:text-cyan-300 border-b-2 border-cyan-500/50"
+              >
+                ATTRIBUTION
+              </button>
+              <button
+                onClick={() => setSelectedQuadrant(2)}
+                className="flex-1 px-3 py-2 text-xs font-mono text-purple-400 hover:text-purple-300"
+              >
+                CONTAINMENT
+              </button>
+            </div>
+
+            {/* ATTRIBUTION TAB */}
+            <div className="space-y-3">
+              <div>
+                <label className="text-xs font-mono text-gray-400 mb-1 block">Threat Indicators</label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={attributionInput}
+                    onChange={(e) => setAttributionInput(e.target.value)}
+                    placeholder="IP, email, domain..."
+                    className="flex-1 bg-black/50 border border-white/10 rounded px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500/50"
+                  />
+                  <button
+                    onClick={addIndicator}
+                    className="px-3 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded hover:bg-cyan-500/20 text-cyan-400 text-xs"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              {/* Added Indicators */}
+              {attributionIndicators.length > 0 && (
+                <div className="space-y-1">
+                  {attributionIndicators.map((ind, idx) => (
+                    <div key={idx} className="flex items-center justify-between bg-black/50 border border-white/10 rounded px-3 py-2 text-xs">
+                      <span className="font-mono text-cyan-300">{ind}</span>
+                      <button
+                        onClick={() => removeIndicator(idx)}
+                        className="text-gray-500 hover:text-red-400"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Correlate Button */}
+              <button
+                onClick={correlateIndicators}
+                disabled={isCorrelating || attributionIndicators.length === 0}
+                className="w-full px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded font-mono text-xs text-cyan-300 hover:border-cyan-400/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isCorrelating ? (
+                  <>
+                    <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity }} className="w-3 h-3 border-2 border-cyan-500/50 border-t-cyan-400 rounded-full" />
+                    Correlating...
+                  </>
+                ) : (
+                  <>
+                    <Zap className="w-3 h-3" />
+                    Correlate Threat Actors
+                  </>
+                )}
+              </button>
+
+              {/* Dossier Result */}
+              {dossierData && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  className="bg-black/50 border border-cyan-500/20 rounded p-3 text-xs space-y-1"
+                >
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Actor ID:</span>
+                    <span className="font-mono text-cyan-300">{dossierData.actor_id}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Confidence:</span>
+                    <span className="font-mono text-cyan-300">{(dossierData.confidence * 100).toFixed(1)}%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Observations:</span>
+                    <span className="font-mono text-cyan-300">{dossierData.observations}</span>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+
+            {/* CONTAINMENT TAB (Hidden by default, shown on click) */}
+            {selectedQuadrant === 2 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="space-y-3"
+              >
+                <div>
+                  <label className="text-xs font-mono text-gray-400 mb-1 block">Host Identifier</label>
+                  <input
+                    type="text"
+                    value={containmentHost}
+                    onChange={(e) => setContainmentHost(e.target.value)}
+                    placeholder="IP or hostname..."
+                    className="w-full bg-black/50 border border-white/10 rounded px-3 py-2 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-purple-500/50"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-mono text-gray-400 mb-1 block">Severity (P1=9-10)</label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="10"
+                    value={containmentSeverity}
+                    onChange={(e) => setContainmentSeverity(parseInt(e.target.value))}
+                    className="w-full"
+                  />
+                  <div className="text-xs text-gray-400 mt-1">Level: {containmentSeverity}</div>
+                </div>
+
+                <button
+                  onClick={isolateHost}
+                  disabled={isIsolating || containmentSeverity < 9}
+                  className="w-full px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded font-mono text-xs text-purple-300 hover:border-purple-400/50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isIsolating ? (
+                    <>
+                      <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity }} className="w-3 h-3 border-2 border-purple-500/50 border-t-purple-400 rounded-full" />
+                      Isolating...
+                    </>
+                  ) : (
+                    <>
+                      <Shield className="w-3 h-3" />
+                      Isolate Host
+                    </>
+                  )}
+                </button>
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

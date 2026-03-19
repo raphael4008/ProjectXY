@@ -258,6 +258,46 @@ class MicrosegmentationService:
             logger.info(f"[Microseg] Simulating unisolation for {host_identifier}")
             return {"outcome": "simulated", "method": "local-sim"}
 
+    async def get_containment_status(
+        self,
+        tenant_id: str,
+        host_identifier: str
+    ) -> Dict[str, Any]:
+        """
+        Get the current containment status for a host.
+        
+        Args:
+            tenant_id: Organization ID
+            host_identifier: Target host
+        
+        Returns:
+            Dictionary with isolation status, reason, TTL remaining
+        """
+        audit = self._isolated_hosts.get(host_identifier)
+        
+        if not audit:
+            return {
+                "is_isolated": False,
+                "host": host_identifier,
+                "reason": None,
+                "ttl_remaining": None
+            }
+        
+        # Check if TTL has expired
+        elapsed = time.time() - audit.get("started_at", time.time())
+        ttl_remaining = max(0, audit.get("ttl", 3600) - elapsed)
+        
+        return {
+            "is_isolated": ttl_remaining > 0,
+            "host": host_identifier,
+            "reason": audit.get("reason"),
+            "severity": audit.get("severity"),
+            "started_at": audit.get("started_at"),
+            "ttl_remaining": ttl_remaining,
+            "tenant": audit.get("tenant"),
+            "method": "simulated" if not self.netops_url else "netops"
+        }
+
     def get_isolation_status(self, host_identifier: str) -> Optional[Dict[str, Any]]:
         """
         Get the current isolation status for a host.
